@@ -2,7 +2,6 @@
 
 package transeversalmain;
 
-import transeversal.datos.Conexion;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,15 +11,7 @@ public class TranseversalMain {
 
     
     public static void main(String[] args) {
-//           Connection con;
-//        con = Conexion.getConexion();
-//       String sql = "INSERT INTO alumno (dni, apellido, nombre, fechaNacimiento, estado) VALUES (?, ?, ?, ?, ?)";
-
-//        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            //alumno 1}
-            
-              
-            
+          
             int dni = 30200666;
             String apellido = "Torrez";
             String nombre = "Gabriel";
