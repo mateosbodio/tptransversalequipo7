@@ -1,5 +1,3 @@
-
-
 package transeversalmain;
 
 import java.sql.*;
@@ -7,34 +5,32 @@ import java.time.LocalDate;
 import java.util.List;
 import transeversal.datos.AlumnoData;
 import transeversal.entidades.Alumno;
+
 public class TranseversalMain {
 
-    
     public static void main(String[] args) {
-          
-            int dni = 30200666;
-            String apellido = "Torrez";
-            String nombre = "Gabriel";
-            LocalDate fechaNac = LocalDate.of(2000, 01, 15);
-            boolean estado = true;
-            
-            Alumno a1= new Alumno(dni,apellido,nombre,fechaNac,estado);
-            AlumnoData ad1= new AlumnoData();
+
+        int dni = 30200666;
+        String apellido = "Torrez";
+        String nombre = "Gabriel";
+        LocalDate fechaNac = LocalDate.of(2000, 01, 15);
+        boolean estado = true;
+
+        Alumno a1 = new Alumno(dni, apellido, nombre, fechaNac, estado);
+        AlumnoData ad1 = new AlumnoData();
 //            ad1.guardarAlumno(a1);
-            Alumno encontrado= ad1.buscarAlumnoPorDni(30200666);
-            System.out.println("alumno encontrado "+encontrado);
-            
-            List<Alumno> listado=ad1.obtenerAlumnos();
-            for (Alumno alumno : listado) {
-                System.out.println(alumno);
+        Alumno encontrado = ad1.buscarAlumnoPorDni(30200666);
+        System.out.println("alumno encontrado " + encontrado);
+
+        List<Alumno> listado = ad1.obtenerAlumnos();
+        for (Alumno alumno : listado) {
+            System.out.println(alumno);
         }
-            encontrado.setNombre("Hugo Gabriel");
-            ad1.modificarAlumno(encontrado);
-            
-            
-            ad1.eliminarAlumno(encontrado.getIdAlumno());
-        
-            
+        encontrado.setNombre("Hugo Gabriel");
+        ad1.modificarAlumno(encontrado);
+
+        ad1.eliminarAlumno(encontrado.getIdAlumno());
+
 //            ps.setInt(1, dni);
 //            ps.setString(2, apellido);
 //            ps.setString(3, nombre);
@@ -158,8 +154,6 @@ public class TranseversalMain {
 //        } catch (SQLException e) {
 //            System.err.println("Error: " + e.getMessage());
 //        }
-
     }
-    
+
 }
-    
