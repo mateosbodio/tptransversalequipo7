@@ -4,22 +4,20 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
 import transeversal.datos.AlumnoData;
+import transeversal.datos.MateriaData;
 import transeversal.entidades.Alumno;
+import transeversal.entidades.Materia;
 
 public class TranseversalMain {
 
     public static void main(String[] args) {
-
-<<<<<<< HEAD
         //ALUMNOS
-=======
->>>>>>> 52cc46fd67189f693ffb27e0720820120ebd2c43
         int dni = 30200666;
         String apellido = "Torrez";
         String nombre = "Gabriel";
         LocalDate fechaNac = LocalDate.of(2000, 01, 15);
         boolean estado = true;
-<<<<<<< HEAD
+
         Alumno a1 = new Alumno(dni, apellido, nombre, fechaNac, estado);
         AlumnoData ad1 = new AlumnoData();
             ad1.guardarAlumno(a1);
@@ -70,105 +68,50 @@ public class TranseversalMain {
         boolean estado5 = true;
         
         Alumno a5 = new Alumno(dni5, apellido5, nombre5, fechaNac5, estado5);
+     
         ad1.guardarAlumno(a5);
-
         
-=======
-
-        Alumno a1 = new Alumno(dni, apellido, nombre, fechaNac, estado);
-        AlumnoData ad1 = new AlumnoData();
-//            ad1.guardarAlumno(a1);
+    //busqueda de alumno por dni.
+        
         Alumno encontrado = ad1.buscarAlumnoPorDni(30200666);
         System.out.println("alumno encontrado " + encontrado);
-
+    
+    //busqueda de alumnos por listado.
+       
         List<Alumno> listado = ad1.obtenerAlumnos();
         for (Alumno alumno : listado) {
             System.out.println(alumno);
         }
+    //modificar nombre de alumno encontrado.
         encontrado.setNombre("Hugo Gabriel");
         ad1.modificarAlumno(encontrado);
-
+    //eliminar alumno encontrado.
         ad1.eliminarAlumno(encontrado.getIdAlumno());
 
->>>>>>> 52cc46fd67189f693ffb27e0720820120ebd2c43
-//            ps.setInt(1, dni);
-//            ps.setString(2, apellido);
-//            ps.setString(3, nombre);
-//            ps.setString(4, fechaNac);
-//            ps.setBoolean(5, estado);
-//            ps.executeUpdate();
-//
-//            int dni1 = 30200022;
-//            String apellido1 = "Rios";
-//            String nombre1 = "Julian";
-//            String fechaNac1 = "2000-01-23";
-//            boolean estado1 = true;
-//
-//            ps.setInt(1, dni1);
-//            ps.setString(2, apellido1);
-//            ps.setString(3, nombre1);
-//            ps.setString(4, fechaNac1);
-//            ps.setBoolean(5, estado1);
-//            ps.executeUpdate();
-//
-//            int dni2 = 57846786;
-//            String apellido2 = "Sturniolo";
-//            String nombre2 = "Bruno";
-//            String fechaNac2 = "2000-05-04";
-//            boolean estado2 = true;
-//
-//            ps.setInt(1, dni2);
-//            ps.setString(2, apellido2);
-//            ps.setString(3, nombre2);
-//            ps.setString(4, fechaNac2);
-//            ps.setBoolean(5, estado2);
-//            ps.executeUpdate();
-//            
-//            int dni3 = 54587521;
-//            String apellido3 = "Suarez";
-//            String nombre3 = "Martin";
-//            String fechaNac3 = "2000-07-10";
-//            boolean estado3 = false;
-//
-//            ps.setInt(1, dni3);
-//            ps.setString(2, apellido3);
-//            ps.setString(3, nombre3);
-//            ps.setString(4, fechaNac3);
-//            ps.setBoolean(5, estado3);
-//            ps.executeUpdate();
-//            
-//            int dni4 = 45674872;
-//            String apellido4 = "Sbodio";
-//            String nombre4 = "Mateo";
-//            String fechaNac4 = "2000-06-17";
-//            boolean estado4 = true;
-//
-//            ps.setInt(1, dni4);
-//            ps.setString(2, apellido4);
-//            ps.setString(3, nombre4);
-//            ps.setString(4, fechaNac4);
-//            ps.setBoolean(5, estado4);
-//            ps.executeUpdate();
-//            System.out.println("Se cargo el alumno correctamente");
-//        } catch (SQLException e) {
-//            System.err.println("Error al cargar datos: " + e.getMessage());
-//        }
-//
-//       String sql1 = "INSERT INTO materia (nombre, año, estado) VALUES (?, ?, ?)";
-//
-//        try (PreparedStatement ps = con.prepareStatement(sql1)) {
-//            //  materia
-//            ps.setString(1, "Laboratorio"); 
-//            ps.setInt(2, 2023); 
-//            ps.setBoolean(3, true); 
-//            ps.executeUpdate();
-//
-//            System.out.println("Se cargo la materia.");
-//        } catch (SQLException e) {
-//            System.err.println("Error al cargar datos: " + e.getMessage());
-//
-//        }
-//      //metodo para mostar notas
+    //cargar materias.
+       MateriaData md1= new MateriaData();
+       Materia m1= new Materia();
+       m1.setNombre("Laboratorio");
+       m1.setAño(2);
+       m1.setEstado(true);
+       md1.cargarMateria(m1);
+
+       Materia m2= new Materia();
+       m2.setNombre("Lengua");
+       m2.setAño(1);
+       m2.setEstado(true);
+       md1.cargarMateria(m2);
+       
+       Materia m3= new Materia();
+       m3.setNombre("Matemática");
+       m3.setAño(1);
+       m3.setEstado(false);
+       
+      
+    //metodo para mostar notas
+    
+    
+    //no tocar el codigo de abajo.
 //        String consulta = "SELECT a.idAlumno, a.dni, a.apellido, a.nombre, i.nota, m.nombre AS nombreMateria "
 //                + "FROM alumno a "
 //                + "INNER JOIN inscripcion i ON a.idAlumno = i.idAlumno "
@@ -192,8 +135,8 @@ public class TranseversalMain {
 //            System.out.println("error"+e.getMessage());
 //        }
 //
-//
-////metodo desincripccion.
+
+    //metodo desincripccion.
 //
 // try {
 //            PreparedStatement ps = null;
