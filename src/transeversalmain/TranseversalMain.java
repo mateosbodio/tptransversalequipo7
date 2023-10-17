@@ -10,12 +10,16 @@ public class TranseversalMain {
 
     public static void main(String[] args) {
 
+<<<<<<< HEAD
         //ALUMNOS
+=======
+>>>>>>> 52cc46fd67189f693ffb27e0720820120ebd2c43
         int dni = 30200666;
         String apellido = "Torrez";
         String nombre = "Gabriel";
         LocalDate fechaNac = LocalDate.of(2000, 01, 15);
         boolean estado = true;
+<<<<<<< HEAD
         Alumno a1 = new Alumno(dni, apellido, nombre, fechaNac, estado);
         AlumnoData ad1 = new AlumnoData();
             ad1.guardarAlumno(a1);
@@ -69,6 +73,24 @@ public class TranseversalMain {
         ad1.guardarAlumno(a5);
 
         
+=======
+
+        Alumno a1 = new Alumno(dni, apellido, nombre, fechaNac, estado);
+        AlumnoData ad1 = new AlumnoData();
+//            ad1.guardarAlumno(a1);
+        Alumno encontrado = ad1.buscarAlumnoPorDni(30200666);
+        System.out.println("alumno encontrado " + encontrado);
+
+        List<Alumno> listado = ad1.obtenerAlumnos();
+        for (Alumno alumno : listado) {
+            System.out.println(alumno);
+        }
+        encontrado.setNombre("Hugo Gabriel");
+        ad1.modificarAlumno(encontrado);
+
+        ad1.eliminarAlumno(encontrado.getIdAlumno());
+
+>>>>>>> 52cc46fd67189f693ffb27e0720820120ebd2c43
 //            ps.setInt(1, dni);
 //            ps.setString(2, apellido);
 //            ps.setString(3, nombre);
