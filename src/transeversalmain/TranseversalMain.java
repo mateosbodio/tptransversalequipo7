@@ -21,18 +21,7 @@ public class TranseversalMain {
         Alumno a1 = new Alumno(dni, apellido, nombre, fechaNac, estado);
         AlumnoData ad1 = new AlumnoData();
             ad1.guardarAlumno(a1);
-//      Alumno encontrado = ad1.buscarAlumnoPorDni(30200666);
-//        System.out.println("alumno encontrado " + encontrado);
-//
-//        List<Alumno> listado = ad1.obtenerAlumnos();
-//        for (Alumno alumno : listado) {
-//            System.out.println(alumno);
-//        }
-//        encontrado.setNombre("Hugo Gabriel");
-//        ad1.modificarAlumno(encontrado);
-//
-//        ad1.eliminarAlumno(encontrado.getIdAlumno());
-
+    
         
         int dni2 = 32465789 ;
         String apellido2 = "Sbodio";
@@ -85,7 +74,7 @@ public class TranseversalMain {
     //modificar nombre de alumno encontrado.
         encontrado.setNombre("Hugo Gabriel");
         ad1.modificarAlumno(encontrado);
-    //eliminar alumno encontrado.
+    //eliminar alumno por id de alumno
         ad1.eliminarAlumno(encontrado.getIdAlumno());
 
     //cargar materias.
