@@ -5,10 +5,10 @@ package transeversal.vistas;
  *
  * @author Julian Rios
  */
-public class Alumno extends javax.swing.JFrame {
+public class AlumnoVista extends javax.swing.JFrame {
 
    
-    public Alumno() {
+    public AlumnoVista() {
         initComponents();
     }
 
@@ -39,7 +39,6 @@ public class Alumno extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GESTION ALUMNOS");
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         jPanel1.setBackground(new java.awt.Color(98, 160, 221));
 

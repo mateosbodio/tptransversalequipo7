@@ -5,10 +5,10 @@ package transeversal.vistas;
  *
  * @author Julian Rios
  */
-public class AlumnoPorMateria extends javax.swing.JFrame {
+public class AlumnoPorMateriaVista extends javax.swing.JFrame {
 
     
-    public AlumnoPorMateria() {
+    public AlumnoPorMateriaVista() {
         initComponents();
     }
 

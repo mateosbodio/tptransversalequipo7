@@ -165,22 +165,22 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuInscripActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInscripActionPerformed
-        Inscripciones insc = new Inscripciones();
+        InscripcionesVista insc = new InscripcionesVista();
         insc.setVisible(true);
     }//GEN-LAST:event_menuInscripActionPerformed
 
     private void menuNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNotasActionPerformed
-        Notas nt = new Notas();
+        NotasVista nt = new NotasVista();
         nt.setVisible(true);
     }//GEN-LAST:event_menuNotasActionPerformed
 
     private void menuAlumXMaterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlumXMaterActionPerformed
-        AlumnoPorMateria alum = new AlumnoPorMateria();
+        AlumnoPorMateriaVista alum = new AlumnoPorMateriaVista();
         alum.setVisible(true);
     }//GEN-LAST:event_menuAlumXMaterActionPerformed
 
     private void menuListarAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuListarAlumActionPerformed
-        ListarAlumnos la = new ListarAlumnos();
+        ListarAlumnosVista la = new ListarAlumnosVista();
         la.setVisible(true);
     }//GEN-LAST:event_menuListarAlumActionPerformed
 
@@ -192,12 +192,12 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void menuAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlumActionPerformed
-        Alumno alu = new Alumno();
+        AlumnoVista alu = new AlumnoVista();
         alu.setVisible(true);
     }//GEN-LAST:event_menuAlumActionPerformed
 
     private void menuMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuMateriasActionPerformed
-        Materia mt = new Materia();
+        MateriaVista mt = new MateriaVista();
         mt.setVisible(true);
     }//GEN-LAST:event_menuMateriasActionPerformed
 

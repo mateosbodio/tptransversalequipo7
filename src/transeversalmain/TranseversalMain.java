@@ -98,9 +98,9 @@ public class TranseversalMain {
        
       
     //metodo para mostar notas
+  //   MateriaData md1
     
-    
-    //no tocar el codigo de abajo.
+
 //        String consulta = "SELECT a.idAlumno, a.dni, a.apellido, a.nombre, i.nota, m.nombre AS nombreMateria "
 //                + "FROM alumno a "
 //                + "INNER JOIN inscripcion i ON a.idAlumno = i.idAlumno "

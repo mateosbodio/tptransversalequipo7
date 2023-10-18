@@ -5,10 +5,10 @@ package transeversal.vistas;
  *
  * @author Julian Rios
  */
-public class Inscripciones extends javax.swing.JFrame {
+public class InscripcionesVista extends javax.swing.JFrame {
 
     
-    public Inscripciones() {
+    public InscripcionesVista() {
         initComponents();
     }
 
