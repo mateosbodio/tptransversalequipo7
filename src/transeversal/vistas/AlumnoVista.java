@@ -1,6 +1,10 @@
-
 package transeversal.vistas;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import transeversal.datos.AlumnoData;
 import transeversal.entidades.Alumno;
 
@@ -10,12 +14,10 @@ import transeversal.entidades.Alumno;
  */
 public class AlumnoVista extends javax.swing.JFrame {
 
-   
     public AlumnoVista() {
         initComponents();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -31,7 +33,7 @@ public class AlumnoVista extends javax.swing.JFrame {
         txtDNI = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jdcFechaNac = new com.toedter.calendar.JDateChooser();
         checkEstado = new javax.swing.JCheckBox();
         btnCargar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
@@ -77,7 +79,7 @@ public class AlumnoVista extends javax.swing.JFrame {
 
         txtNombre.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        jDateChooser1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jdcFechaNac.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         checkEstado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         checkEstado.setText("ACTIVO/NO ACTIVO");
@@ -139,7 +141,7 @@ public class AlumnoVista extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jdcFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -183,7 +185,7 @@ public class AlumnoVista extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdcFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
@@ -215,16 +217,53 @@ public class AlumnoVista extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    //Parsear la fecha Date del SQL a LocalDate
+    public static LocalDate convertirLocalDate(Date d) {
+        LocalDate xx = null;
+        if (d != null) {
+            Instant instant = d.toInstant();
+            ZoneId zonaHoraria = ZoneId.systemDefault();
+            xx = instant.atZone(zonaHoraria).toLocalDate();
+        }
+        return xx;
+    }
+
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        int dni=Integer.parseInt(txtDNI.getText());
-        Alumno a1=new Alumno();
-        AlumnoData ad1= new AlumnoData();
-        ad1.buscarAlumnoPorDni(dni);
-        
+       try {
+        // Verificar si el campo DNI está vacío
+        if (txtDNI.getText().isEmpty()) {
+            throw new RuntimeException("El campo DNI está vacío");
+        }
+
+        int dni = Integer.parseInt(txtDNI.getText());
+        AlumnoData ad = new AlumnoData();
+        Alumno alum = ad.buscarAlumnoPorDni(dni);
+
+        if (alum != null) {
+            txtApellido.setText(alum.getApellido());
+            txtNombre.setText(alum.getNombre());
+
+            // Convertir LocalDate a Date
+            LocalDate fechaNacimientoLocal = alum.getFechaNacimiento();
+            Date fechaNacimientoDate = java.sql.Date.valueOf(fechaNacimientoLocal);
+            jdcFechaNac.setDate(fechaNacimientoDate);
+
+            // Si estado = activo/cursando, tildamos el estado; de lo contrario, queda destildado.
+            if (alum.isEstado() == true) {
+                checkEstado.setSelected(true);
+            } else {
+                checkEstado.setSelected(false);
+            }
+        }
+    } catch (NumberFormatException e) {
+        // Manejar la excepción si el DNI no es un número válido
+        JOptionPane.showMessageDialog(this, "DNI inválido. Ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (RuntimeException e) {
+        // Manejar la excepción si el campo DNI está vacío
+        JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -234,7 +273,6 @@ public class AlumnoVista extends javax.swing.JFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JCheckBox checkEstado;
     private javax.swing.JButton jButton1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -242,6 +280,7 @@ public class AlumnoVista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private com.toedter.calendar.JDateChooser jdcFechaNac;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtNombre;
