@@ -98,7 +98,7 @@ public class AlumnoData {
 
     public Alumno buscarAlumnoPorDni(int dni) {
         Alumno alumno = null;
-        String buscarDni = "SELECT idAlumno, dni, apellido, nombre, fechaNacimiento, estado FROM alumno WHERE dni=? AND estado=1";
+        String buscarDni = "SELECT idAlumno, dni, apellido, nombre, fechaNacimiento, estado FROM alumno WHERE dni=?";
         try (PreparedStatement ps = con.prepareStatement(buscarDni)) {
             ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();

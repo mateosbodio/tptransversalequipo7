@@ -1,6 +1,9 @@
 
 package transeversal.vistas;
 
+import transeversal.datos.AlumnoData;
+import transeversal.entidades.Alumno;
+
 /**
  *
  * @author Julian Rios
@@ -103,6 +106,11 @@ public class AlumnoVista extends javax.swing.JFrame {
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -206,6 +214,15 @@ public class AlumnoVista extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        int dni=Integer.parseInt(txtDNI.getText());
+        Alumno a1=new Alumno();
+        AlumnoData ad1= new AlumnoData();
+        ad1.buscarAlumnoPorDni(dni);
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     
 
