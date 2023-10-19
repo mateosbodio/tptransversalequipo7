@@ -76,6 +76,11 @@ public class Menu extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Alumnos");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         jMenuItem1.setText("Alumnos");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -123,6 +128,11 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu4.setText("Consultas");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu4ActionPerformed(evt);
+            }
+        });
 
         menuAlumXMater.setText("Alumnos Por Materia");
         menuAlumXMater.addActionListener(new java.awt.event.ActionListener() {
@@ -211,8 +221,19 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
+             AlumnoPorDni aluDni = new AlumnoPorDni();
+        aluDni.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+        
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu4ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
