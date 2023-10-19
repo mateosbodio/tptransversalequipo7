@@ -84,6 +84,11 @@ public class AlumnoVista extends javax.swing.JFrame {
         btnCargar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCargar.setForeground(new java.awt.Color(255, 255, 255));
         btnCargar.setText("GUARDAR");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
 
         btnModificar.setBackground(new java.awt.Color(153, 153, 0));
         btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -255,6 +260,78 @@ public class AlumnoVista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        //Variable para guardar msjs para el usuario
+        //Dentro del try no la reconoce el catch
+        String msj = "Error: Por favor ingrese, ";
+        try {
+            //alumnoData tiene el metodo agregar alumno que recibe un alumno de entidades
+            //Capturamos los datos del form para armar la instancia de entidades
+            //luego lo recibe el metodo agregarAlumno de AlumnoData
+            Alumno alum = new Alumno();
+            AlumnoData ad = new AlumnoData();
+
+            //Capturamos datos para crear alumno nuevo:
+            String dniString = txtDNI.getText().trim();
+            int dni=0;
+            if (dniString.isEmpty()) {
+                msj = msj + "DNI .";
+            }else{
+                 dni = Integer.parseInt(dniString);
+            }
+
+            String apellido = txtApellido.getText().trim().toUpperCase();
+            if (apellido.isEmpty()) {
+                msj = msj + "Apellido. ";
+            }
+
+            String nombre = txtNombre.getText().trim().toUpperCase();
+            if (nombre.isEmpty()) {
+                msj = msj + "Nombre. ";
+            }
+
+            //Guardamos la fecha ingresada para parsearla
+            //ingresar la fecha del chooser de tipo Date
+            java.util.Date fechaNacimientoUtil = jdcFechaNac.getDate();
+            //Entidades recibe un LocalDate , la parseamos 
+            LocalDate fechaNacimientoLocal = null;
+            if (fechaNacimientoUtil != null) {
+                java.sql.Date fechaNacimientoDate = new java.sql.Date(fechaNacimientoUtil.getTime());
+                fechaNacimientoLocal = fechaNacimientoDate.toLocalDate();
+            } else {
+                msj = msj + "Fecha de Nacimiento. ";
+            }
+            int estadoInt = cmbEstado.getSelectedIndex();
+            boolean estado = true;
+            if (estadoInt < 0) {
+                msj = msj + "Estado. ";
+            } else if (estadoInt == 2) {
+                estado = false;
+            } else if (estadoInt == 1) {
+                estado = true;
+            }
+
+            //Crea el Alumno alum de entidades
+            alum.setDni(dni);
+            alum.setApellido(apellido);
+            alum.setNombre(nombre);
+            alum.setFechaNacimiento(fechaNacimientoLocal);
+            alum.setEstado(estado);
+
+            //AlumnoData recibe alum y lo guarda en la base de datos 
+            //con su metodo guardarAlumno(verifica que no exista el dni,en el SQL es unico
+            ad.guardarAlumno(alum);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, msj);
+        } catch (NumberFormatException e) {
+            // Manejar la excepción si el DNI no es un número válido
+            JOptionPane.showMessageDialog(this, msj);
+        } catch (RuntimeException e) {
+            // Manejar la excepción si el campo DNI está vacío
+            JOptionPane.showMessageDialog(this, msj);
+        }
+    }//GEN-LAST:event_btnCargarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
