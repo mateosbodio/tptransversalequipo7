@@ -34,13 +34,11 @@ public class AlumnoVista extends javax.swing.JFrame {
         txtApellido = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jdcFechaNac = new com.toedter.calendar.JDateChooser();
-        checkEstado = new javax.swing.JCheckBox();
         btnCargar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        btnEliminar1 = new javax.swing.JButton();
+        cmbEstado = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GESTION ALUMNOS");
@@ -82,9 +80,6 @@ public class AlumnoVista extends javax.swing.JFrame {
 
         jdcFechaNac.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        checkEstado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        checkEstado.setText("ACTIVO/NO ACTIVO");
-
         btnCargar.setBackground(new java.awt.Color(153, 153, 0));
         btnCargar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCargar.setForeground(new java.awt.Color(255, 255, 255));
@@ -94,11 +89,6 @@ public class AlumnoVista extends javax.swing.JFrame {
         btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setText("MODIFICAR");
-
-        btnEliminar.setBackground(new java.awt.Color(153, 153, 153));
-        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminar.setText("HABILITAR");
 
         btnLimpiar.setBackground(new java.awt.Color(153, 153, 0));
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -115,10 +105,9 @@ public class AlumnoVista extends javax.swing.JFrame {
             }
         });
 
-        btnEliminar1.setBackground(new java.awt.Color(153, 153, 153));
-        btnEliminar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnEliminar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminar1.setText("DESHABILITAR");
+        cmbEstado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "NO ACTIVO" }));
+        cmbEstado.setSelectedIndex(-1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -136,10 +125,6 @@ public class AlumnoVista extends javax.swing.JFrame {
                         .addGap(186, 186, 186)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jdcFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
@@ -153,14 +138,13 @@ public class AlumnoVista extends javax.swing.JFrame {
                                     .addComponent(txtApellido)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(67, 67, 67)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(btnEliminar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnEliminar1))))))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jdcFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(btnCargar)
@@ -198,12 +182,8 @@ public class AlumnoVista extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(checkEstado))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnEliminar1))
-                .addGap(43, 43, 43)
+                    .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(90, 90, 90)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCargar)
                     .addComponent(btnModificar)
@@ -241,50 +221,48 @@ public class AlumnoVista extends javax.swing.JFrame {
     }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-       try {
-        // Verificar si el campo DNI está vacío
-        if (txtDNI.getText().isEmpty()) {
-            throw new RuntimeException("El campo DNI está vacío");
-        }
-
-        int dni = Integer.parseInt(txtDNI.getText());
-        AlumnoData ad = new AlumnoData();
-        Alumno alum = ad.buscarAlumnoPorDni(dni);
-
-        if (alum != null) {
-            txtApellido.setText(alum.getApellido());
-            txtNombre.setText(alum.getNombre());
-
-            // Convertir LocalDate a Date
-            LocalDate fechaNacimientoLocal = alum.getFechaNacimiento();
-            Date fechaNacimientoDate = java.sql.Date.valueOf(fechaNacimientoLocal);
-            jdcFechaNac.setDate(fechaNacimientoDate);
-
-            // Si estado = activo/cursando, tildamos el estado; de lo contrario, queda destildado.
-            if (alum.isEstado() == true) {
-                checkEstado.setSelected(true);
-            } else {
-                checkEstado.setSelected(false);
+        try {
+            // Verificar si el campo DNI está vacío
+            if (txtDNI.getText().isEmpty()) {
+                throw new RuntimeException("El campo DNI está vacío");
             }
+
+            int dni = Integer.parseInt(txtDNI.getText());
+            AlumnoData ad = new AlumnoData();
+            Alumno alum = ad.buscarAlumnoPorDni(dni);
+
+            if (alum != null) {
+                txtApellido.setText(alum.getApellido());
+                txtNombre.setText(alum.getNombre());
+
+                // Convertir LocalDate a Date
+                LocalDate fechaNacimientoLocal = alum.getFechaNacimiento();
+                Date fechaNacimientoDate = java.sql.Date.valueOf(fechaNacimientoLocal);
+                jdcFechaNac.setDate(fechaNacimientoDate);
+
+                // correccion combobox
+                if (alum.isEstado()) {
+                    cmbEstado.setSelectedIndex(0);
+                } else {
+                    cmbEstado.setSelectedIndex(1);
+                }
+            }
+        } catch (NumberFormatException e) {
+            // Manejar la excepción si el DNI no es un número válido
+            JOptionPane.showMessageDialog(this, "DNI inválido. Ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (RuntimeException e) {
+            // Manejar la excepción si el campo DNI está vacío
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (NumberFormatException e) {
-        // Manejar la excepción si el DNI no es un número válido
-        JOptionPane.showMessageDialog(this, "DNI inválido. Ingrese un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
-    } catch (RuntimeException e) {
-        // Manejar la excepción si el campo DNI está vacío
-        JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCargar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnEliminar1;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JCheckBox checkEstado;
+    private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
