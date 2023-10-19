@@ -3,16 +3,7 @@ package transeversal.vistas;
 import java.awt.Menu;
 import javax.swing.JOptionPane;
 
-<<<<<<< Updated upstream
-
-public class Menu extends javax.swing.JFrame {
-=======
-/**
- *
- * @author Mateo
- */
 public class MENU extends javax.swing.JFrame {
->>>>>>> Stashed changes
 
     public MENU() {
         initComponents();
@@ -227,13 +218,10 @@ public class MENU extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-<<<<<<< Updated upstream
         // TODO add your handling code here:
-=======
->>>>>>> Stashed changes
         
-        AlumnoPorDni aluDni = new AlumnoPorDni();
-        aluDni.setVisible(true);
+     //   AlumnoPorDni aluDni = new AlumnoPorDni();
+     //   aluDni.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
