@@ -1,11 +1,20 @@
 package transeversal.vistas;
 
+import java.awt.Menu;
 import javax.swing.JOptionPane;
 
+<<<<<<< Updated upstream
 
 public class Menu extends javax.swing.JFrame {
+=======
+/**
+ *
+ * @author Mateo
+ */
+public class MENU extends javax.swing.JFrame {
+>>>>>>> Stashed changes
 
-    public Menu() {
+    public MENU() {
         initComponents();
     }
 
@@ -73,6 +82,7 @@ public class Menu extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Alumnos");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu1ActionPerformed(evt);
@@ -212,22 +222,27 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_menuMateriasActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-             AlumnoVista alu = new AlumnoVista();
+        AlumnoVista alu = new AlumnoVista();
         alu.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+<<<<<<< Updated upstream
         // TODO add your handling code here:
+=======
+>>>>>>> Stashed changes
         
+        AlumnoPorDni aluDni = new AlumnoPorDni();
+        aluDni.setVisible(true);
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
         
-        // TODO add your handling code here:
     }//GEN-LAST:event_jMenu4ActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     public static void main(String args[]) {
@@ -256,10 +271,8 @@ public class Menu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Menu().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MENU().setVisible(true);
         });
     }
 

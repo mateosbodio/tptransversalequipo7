@@ -7,7 +7,7 @@ import transeversal.datos.AlumnoData;
 import transeversal.datos.MateriaData;
 import transeversal.entidades.Alumno;
 import transeversal.entidades.Materia;
-import transeversal.vistas.Menu;
+import transeversal.vistas.MENU;
 
 public class TranseversalMain {
 
@@ -147,7 +147,7 @@ public class TranseversalMain {
 //        } catch (SQLException e) {
 //            System.err.println("Error: " + e.getMessage());
 //        }
-    Menu inicio = new Menu();
+    MENU inicio = new MENU();
     inicio.setVisible(true);
     }
 
