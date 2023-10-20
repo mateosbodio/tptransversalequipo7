@@ -95,11 +95,21 @@ public class AlumnoVista extends javax.swing.JFrame {
         btnModificar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setText("MODIFICAR DATO");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setBackground(new java.awt.Color(153, 153, 0));
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setBackground(new java.awt.Color(153, 153, 0));
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -349,7 +359,7 @@ public class AlumnoVista extends javax.swing.JFrame {
 
                 // Verificar si la edad es mayor o igual a 18 años
                 if (edad.getYears() < 18) {
-                    msj = msj + "No es posible inscribir a alguien menor de edad.";
+                    msj = msj + " personas mayores de 18 años de edad.";
                     cumple = false;
                     JOptionPane.showMessageDialog(this, msj);
                     return;
@@ -397,6 +407,153 @@ public class AlumnoVista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, msj);
         }
     }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        //Variable para guardar msjs para el usuario
+        //Dentro del try no la reconoce el catch
+        String msj = "Error: Por favor ingrese, ";
+
+        try {
+            //alumnoData tiene el metodo modificar alumno que recibe un Alumno alum 
+            //buscarAlumnoPorDni devuelve un Alumno alum filtrando por el dni
+            //luego lo recibe el metodo modificarAlumno de AlumnoData
+            Alumno alum = new Alumno();
+            AlumnoData ad = new AlumnoData();
+            boolean cumple = true;
+
+            //Capturamos datos para modificar el alumno si existe:
+            String dniString = txtDNI.getText().trim();
+            int dni = 0;
+            if (dniString.isEmpty()) {
+                msj = msj + "DNI .";
+                cumple = false;
+                JOptionPane.showMessageDialog(this, msj);
+                return;
+            } else {
+                //Si es distinto a vacio:
+                // Definir una expresión regular que permita de 7 a 8 dígitos numéricos
+                String patronDNI = "^[0-9]{7,8}$";
+                if (dniString.matches(patronDNI)) {
+                    //si es asi lo parseamos a int
+                    dni = Integer.parseInt(dniString);
+                    //GUARDAMOS EL Alumno alum PARA MODIFICARLO EN modificarAlumnoData(alum)
+                    //Antes continuamos validando los datos que cumplan al igual que en Alumno Nuevo
+                    alum = ad.buscarAlumnoPorDni(dni);
+                } else {
+                    msj = msj + "un DNI que contenga al menos 7 números, maximo 8 y que solo contenga números";
+                    cumple = false;
+                    JOptionPane.showMessageDialog(this, msj);
+                    return;
+                }
+            }
+
+            String apellido = txtApellido.getText().trim().toUpperCase();
+
+            if (apellido.isEmpty()) {
+                msj = msj + "Apellido. ";
+                cumple = false;
+                JOptionPane.showMessageDialog(this, msj);
+                return;
+            } else {
+                // Definir una expresión regular que solo permita letras mayúsculas y minúsculas, espacios y apóstrofes
+                String patron = "^[a-zA-Z\\s']{4,20}$";
+                if (!apellido.matches(patron)) {
+                    msj = msj + "Apellido. Solo puede contener mayúsculas y minúsculas, espacios y apóstrofes(Minimo 4, maximo 20 caracteres)";
+                    cumple = false;
+                    JOptionPane.showMessageDialog(this, msj);
+                    return;
+                }
+            }
+
+            String nombre = txtNombre.getText().trim().toUpperCase();
+            if (nombre.isEmpty()) {
+                msj = msj + "Nombre. ";
+                cumple = false;
+                JOptionPane.showMessageDialog(this, msj);
+                return;
+            } else {
+                // Definir una expresión regular que solo permita letras mayúsculas y minúsculas, espacios y apóstrofes
+                String patron = "^[a-zA-Z\\s']{4,20}$";
+                if (!nombre.matches(patron)) {
+                    msj = msj + "Nombre.Solo puede contener mayúsculas y minúsculas, espacios y apóstrofes(Minimo 4, maximo 20 caracteres)";
+                    cumple = false;
+                    JOptionPane.showMessageDialog(this, msj);
+                    return;
+                }
+            }
+
+            //Guardamos la fecha ingresada para parsearla
+            //ingresar la fecha del chooser de tipo Date
+            java.util.Date fechaNacimientoUtil = jdcFechaNac.getDate();
+            //Entidades recibe un LocalDate , la parseamos 
+            LocalDate fechaNacimientoLocal = null;
+            if (fechaNacimientoUtil != null) {
+                java.sql.Date fechaNacimientoDate = new java.sql.Date(fechaNacimientoUtil.getTime());
+                fechaNacimientoLocal = fechaNacimientoDate.toLocalDate();
+
+                // Obtener la fecha actual para verificar si tiene 18 años de edad
+                LocalDate fechaActual = LocalDate.now();
+                // Calcular la diferencia de años entre la fecha actual y la fecha de nacimiento
+                Period edad = Period.between(fechaNacimientoLocal, fechaActual);
+
+                // Verificar si la edad es mayor o igual a 18 años
+                if (edad.getYears() < 18) {
+                    msj = msj + " personas mayores de 18 años de edad.";
+                    cumple = false;
+                    JOptionPane.showMessageDialog(this, msj);
+                    return;
+                }
+
+            } else {
+                msj = msj + "Fecha de Nacimiento. ";
+                cumple = false;
+                JOptionPane.showMessageDialog(this, msj);
+                return;
+            }
+
+            int estadoInt = cmbEstado.getSelectedIndex();
+            boolean estado = true;
+            if (estadoInt < 0) {
+                msj = msj + "Estado. ";
+                cumple = false;
+                JOptionPane.showMessageDialog(this, msj);
+                return;
+            } else if (estadoInt == 2) {
+                estado = false;
+            } else if (estadoInt == 1) {
+                estado = true;
+            }
+
+            //Crea el Alumno alum de entidades
+            alum.setDni(dni);
+            alum.setApellido(apellido);
+            alum.setNombre(nombre);
+            alum.setFechaNacimiento(fechaNacimientoLocal);
+            alum.setEstado(estado);
+
+            //AlumnoData recibe alum y lo guarda en la base de datos 
+            //con su metodo guardarAlumno(verifica que no exista el dni,en el SQL es unico
+            if (cumple == true) {
+                ad.modificarAlumno(alum);
+            }
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, msj);
+        } catch (NumberFormatException e) {
+            // Manejar la excepción si el DNI no es un número válido
+            JOptionPane.showMessageDialog(this, msj);
+        } catch (RuntimeException e) {
+            // Manejar la excepción si el campo DNI está vacío
+            JOptionPane.showMessageDialog(this, msj);
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+       txtDNI.setText("");
+       txtApellido.setText("");
+       txtNombre.setText("");
+       jdcFechaNac.setDateFormatString("");
+       cmbEstado.setSelectedIndex(-1);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
