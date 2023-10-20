@@ -2,6 +2,7 @@ package transeversal.vistas;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -266,30 +267,70 @@ public class AlumnoVista extends javax.swing.JFrame {
         //Variable para guardar msjs para el usuario
         //Dentro del try no la reconoce el catch
         String msj = "Error: Por favor ingrese, ";
+
         try {
             //alumnoData tiene el metodo agregar alumno que recibe un alumno de entidades
             //Capturamos los datos del form para armar la instancia de entidades
             //luego lo recibe el metodo agregarAlumno de AlumnoData
             Alumno alum = new Alumno();
             AlumnoData ad = new AlumnoData();
-
+            boolean cumple = true;
             //Capturamos datos para crear alumno nuevo:
             String dniString = txtDNI.getText().trim();
-            int dni=0;
+            int dni = 0;
             if (dniString.isEmpty()) {
                 msj = msj + "DNI .";
-            }else{
-                 dni = Integer.parseInt(dniString);
+                cumple = false;
+                JOptionPane.showMessageDialog(this, msj);
+                return;
+            } else {
+                //Si es distinto a vacio:
+                // Definir una expresión regular que permita de 7 a 8 dígitos numéricos
+                String patronDNI = "^[0-9]{7,8}$";
+                if (dniString.matches(patronDNI)) {
+                    //si es asi lo parseamos a int
+                    dni = Integer.parseInt(dniString);
+                } else {
+                    msj = msj + "un DNI que contenga al menos 7 números, maximo 8 y que solo contenga números";
+                    cumple = false;
+                    JOptionPane.showMessageDialog(this, msj);
+                    return;
+                }
             }
 
             String apellido = txtApellido.getText().trim().toUpperCase();
+
             if (apellido.isEmpty()) {
                 msj = msj + "Apellido. ";
+                cumple = false;
+                JOptionPane.showMessageDialog(this, msj);
+                return;
+            } else {
+                // Definir una expresión regular que solo permita letras mayúsculas y minúsculas, espacios y apóstrofes
+                String patron = "^[a-zA-Z\\s']{4,20}$";
+                if (!apellido.matches(patron)) {
+                    msj = msj + "Apellido. Solo puede contener mayúsculas y minúsculas, espacios y apóstrofes(Minimo 4, maximo 20 caracteres)";
+                    cumple = false;
+                    JOptionPane.showMessageDialog(this, msj);
+                    return;
+                }
             }
 
             String nombre = txtNombre.getText().trim().toUpperCase();
             if (nombre.isEmpty()) {
                 msj = msj + "Nombre. ";
+                cumple = false;
+                JOptionPane.showMessageDialog(this, msj);
+                return;
+            } else {
+                // Definir una expresión regular que solo permita letras mayúsculas y minúsculas, espacios y apóstrofes
+                String patron = "^[a-zA-Z\\s']{4,20}$";
+                if (!nombre.matches(patron)) {
+                    msj = msj + "Nombre.Solo puede contener mayúsculas y minúsculas, espacios y apóstrofes(Minimo 4, maximo 20 caracteres)";
+                    cumple = false;
+                    JOptionPane.showMessageDialog(this, msj);
+                    return;
+                }
             }
 
             //Guardamos la fecha ingresada para parsearla
@@ -300,13 +341,34 @@ public class AlumnoVista extends javax.swing.JFrame {
             if (fechaNacimientoUtil != null) {
                 java.sql.Date fechaNacimientoDate = new java.sql.Date(fechaNacimientoUtil.getTime());
                 fechaNacimientoLocal = fechaNacimientoDate.toLocalDate();
+
+                // Obtener la fecha actual para verificar si tiene 18 años de edad
+                LocalDate fechaActual = LocalDate.now();
+                // Calcular la diferencia de años entre la fecha actual y la fecha de nacimiento
+                Period edad = Period.between(fechaNacimientoLocal, fechaActual);
+
+                // Verificar si la edad es mayor o igual a 18 años
+                if (edad.getYears() < 18) {
+                    msj = msj + "No es posible inscribir a alguien menor de edad.";
+                    cumple = false;
+                    JOptionPane.showMessageDialog(this, msj);
+                    return;
+                }
+
             } else {
                 msj = msj + "Fecha de Nacimiento. ";
+                cumple = false;
+                JOptionPane.showMessageDialog(this, msj);
+                return;
             }
+
             int estadoInt = cmbEstado.getSelectedIndex();
             boolean estado = true;
             if (estadoInt < 0) {
                 msj = msj + "Estado. ";
+                cumple = false;
+                JOptionPane.showMessageDialog(this, msj);
+                return;
             } else if (estadoInt == 2) {
                 estado = false;
             } else if (estadoInt == 1) {
@@ -322,7 +384,9 @@ public class AlumnoVista extends javax.swing.JFrame {
 
             //AlumnoData recibe alum y lo guarda en la base de datos 
             //con su metodo guardarAlumno(verifica que no exista el dni,en el SQL es unico
-            ad.guardarAlumno(alum);
+            if (cumple == true) {
+                ad.guardarAlumno(alum);
+            }
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, msj);
         } catch (NumberFormatException e) {
