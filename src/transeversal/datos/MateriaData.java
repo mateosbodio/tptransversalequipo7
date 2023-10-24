@@ -62,9 +62,9 @@ public class MateriaData {
         }
     }
 
-    public Materia buscarMateria(int idMateria) {
+    public Materia buscarMateriaId(int idMateria) {
         Materia materia = null;
-        String buscarMateria = "SELECT idMateria, nombre, año, estado FROM materia WHERE idMateria=?";
+        String buscarMateria = "SELECT idMateria, nombre, año, estado FROM materia WHERE idMateria=? AND estado=1";
         try {
             try (PreparedStatement ps = con.prepareStatement(buscarMateria)) {
                 ps.setInt(1, idMateria);
@@ -86,9 +86,9 @@ public class MateriaData {
         return materia;
     }
 
-    public Materia buscarMateria(String nombre) {
+    public Materia buscarMateriaNombre(String nombre) {
         Materia materia = null;
-        String bm = "SELECT idMateria, nombre, año, estado FROM materia WHERE nombre=?";
+        String bm = "SELECT idMateria, nombre, año, estado FROM materia WHERE nombre=? AND estado=1";
         try {
             try (PreparedStatement ps = con.prepareStatement(bm)) {
                 ps.setString(1, nombre);
