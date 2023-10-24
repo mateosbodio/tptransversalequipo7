@@ -25,7 +25,7 @@ public class MateriaData {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
                     materia.setIdMateria(rs.getInt(1));
-                    JOptionPane.showMessageDialog(null, "Materia cargada correctamente");
+                    //JOptionPane.showMessageDialog(null, "Materia cargada correctamente");
                 }
                 rs.close();
             }
@@ -49,13 +49,13 @@ public class MateriaData {
                 int filasActualizadas = ps.executeUpdate();
 
                 if (filasActualizadas > 0) {
-                    JOptionPane.showMessageDialog(null, "Materia modificada exitosamente");
+                    //JOptionPane.showMessageDialog(null, "Materia modificada exitosamente");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se pudo modificar la materia.");
                 }
             }
         } catch (SQLIntegrityConstraintViolationException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo modificar la materia debido a una restricción de integridad.");
+            JOptionPane.showMessageDialog(null, "No se pudo modificar la materia debido a una restricción");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al modificar la materia: " + ex.getMessage());
             ex.printStackTrace();
