@@ -1,5 +1,10 @@
-
 package transeversal.vistas;
+
+import java.util.List;
+import javax.swing.ButtonGroup;
+import javax.swing.table.DefaultTableModel;
+import transeversal.datos.AlumnoData;
+import transeversal.entidades.Alumno;
 
 /**
  *
@@ -7,12 +12,17 @@ package transeversal.vistas;
  */
 public class ListarAlumnosVista extends javax.swing.JFrame {
 
-    
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+
     public ListarAlumnosVista() {
         initComponents();
+        armarCabecera();
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -20,9 +30,9 @@ public class ListarAlumnosVista extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        checkAct = new javax.swing.JCheckBox();
+        checkNoAct = new javax.swing.JCheckBox();
+        checkTodos = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -45,14 +55,29 @@ public class ListarAlumnosVista extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jCheckBox1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jCheckBox1.setText("ACTIVOS");
+        checkAct.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        checkAct.setText("ACTIVOS");
+        checkAct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkActActionPerformed(evt);
+            }
+        });
 
-        jCheckBox2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jCheckBox2.setText("NO ACTIVOS");
+        checkNoAct.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        checkNoAct.setText("NO ACTIVOS");
+        checkNoAct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkNoActActionPerformed(evt);
+            }
+        });
 
-        jCheckBox3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jCheckBox3.setText("TODOS");
+        checkTodos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        checkTodos.setText("TODOS");
+        checkTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkTodosActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("ALUMNOS");
@@ -71,11 +96,11 @@ public class ListarAlumnosVista extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(130, 130, 130)
-                .addComponent(jCheckBox1)
+                .addComponent(checkAct)
                 .addGap(162, 162, 162)
-                .addComponent(jCheckBox2)
+                .addComponent(checkNoAct)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCheckBox3)
+                .addComponent(checkTodos)
                 .addGap(102, 102, 102))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(73, Short.MAX_VALUE)
@@ -98,9 +123,9 @@ public class ListarAlumnosVista extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3))
+                    .addComponent(checkAct)
+                    .addComponent(checkNoAct)
+                    .addComponent(checkTodos))
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
@@ -124,14 +149,80 @@ public class ListarAlumnosVista extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
-  
+    private void checkActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkActActionPerformed
+        checkNoAct.setSelected(false);
+        checkTodos.setSelected(false);
+        actualizarTabla(1);
+    }//GEN-LAST:event_checkActActionPerformed
+
+    private void checkNoActActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkNoActActionPerformed
+        checkAct.setSelected(false);
+        checkTodos.setSelected(false);
+        actualizarTabla(2);
+    }//GEN-LAST:event_checkNoActActionPerformed
+
+    private void checkTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkTodosActionPerformed
+        checkAct.setSelected(false);
+        checkNoAct.setSelected(false);
+        actualizarTabla(0);
+    }//GEN-LAST:event_checkTodosActionPerformed
+
+    private void actualizarTabla(int estado) {
+        int orden = 0;
+        switch (estado) {
+            case 0:
+                // Orden predeterminado
+                break;
+            case 1:
+                // Orden para alumnos activos
+                orden = 1; // Aquí defines el orden para alumnos activos
+                break;
+            case 2:
+                // Orden para alumnos no activos
+                orden = 2; // Aquí defines el orden para alumnos no activos
+                break;
+            default:
+                // Manejar otros casos de estado aquí
+                break;
+        }
+
+        borrarFilas();
+        AlumnoData zzz = new AlumnoData();
+        List<Alumno> lista = zzz.obtenerListaAlumnos(estado, orden);
+        for (Alumno alum : lista) {
+            modelo.addRow(new Object[]{
+                alum.getIdAlumno(),
+                alum.getDni(),
+                alum.getApellido(),
+                alum.getNombre(),
+                alum.getFechaNacimiento(),
+                alum.isEstado()
+            });
+        }
+    }
+
+    private void armarCabecera() {
+        modelo.addColumn("ID");
+        modelo.addColumn("DNI");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Fecha Nac.");
+        modelo.addColumn("Estado");
+        jTable1.setModel(modelo);
+    }
+
+    private void borrarFilas() {
+        int f = jTable1.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modelo.removeRow(f);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkAct;
+    private javax.swing.JCheckBox checkNoAct;
+    private javax.swing.JCheckBox checkTodos;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

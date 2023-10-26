@@ -212,6 +212,7 @@ public class NotasVista extends javax.swing.JFrame {
             } catch (NullPointerException ex) {
             }
             carCombo();
+            
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione una fila para modificar nota");
         }

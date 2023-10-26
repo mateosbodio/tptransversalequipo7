@@ -46,33 +46,21 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "Error al cargar la inscripción: " + ex.getMessage());
         }
     }
-    public Alumno buscarAlumno(int idAlumno){
-        AlumnoData ad= new AlumnoData();
-      return ad.buscarAlumno(idAlumno);
-      
-    }
-    
+
     public List<Inscripcion> obtenerInscripcionesPorAlumno(int idAlumno) {
         List<Inscripcion> lista = new ArrayList<>();
-        String sql = "SELECT inscripcion.idMateria, materia.nombre, inscripcion.nota, "
+        String sql = "SELECT inscripcion.idMateria, materia.nombre, inscripcion.nota "
                 + "FROM inscripcion JOIN materia ON (inscripcion.idMateria = materia.idMateria) "
                 + "WHERE inscripcion.idAlumno = ?";
-                
-        
-        
+
         try {
             try (PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setInt(1, idAlumno);
                 try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
                         Inscripcion inscrip = new Inscripcion();
-                        
                         Materia matt = new Materia();
 
-                        Alumno al= buscarAlumno(idAlumno);
-                        
-                        inscrip.setAlumno(al);
-                        
                         matt.setIdMateria(rs.getInt("idMateria"));
                         matt.setNombre(rs.getString("nombre"));
 
@@ -119,7 +107,6 @@ public class InscripcionData {
         }
 
         return lista;
-        
     }
 
     public List<Materia> obtenerMateriasNoCursadas(int idAlumno) {
@@ -197,7 +184,7 @@ public class InscripcionData {
     public List<Alumno> obtenerAlumnosPorMateria(int idMateria) {
         ArrayList<Alumno> lista = new ArrayList<>();
         String obtenerAlumno = "SELECT alumno.dni, alumno.apellido, alumno.nombre, alumno.estado "
-                + "FROM inscripcion JOIN alumno ON (inscripcion.idAlumno = alumno.idAlumno) and (inscripcion.idMateria = materia.idMateria) WHERE idMateria = ?";
+                + "FROM inscripcion JOIN alumno ON (inscripcion.idAlumno = alumno.idAlumno) WHERE idMateria = ?";
         try {
             try (PreparedStatement ps = con.prepareStatement(obtenerAlumno)) {
                 ps.setInt(1, idMateria);

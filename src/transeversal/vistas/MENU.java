@@ -38,7 +38,6 @@ public class MENU extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         menuAlumXMater = new javax.swing.JMenuItem();
         menuListarAlum = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -159,14 +158,6 @@ public class MENU extends javax.swing.JFrame {
         });
         jMenu4.add(menuListarAlum);
 
-        jMenuItem2.setText("Alumnos Por DNI");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem2);
-
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -201,16 +192,6 @@ public class MENU extends javax.swing.JFrame {
         nt.setVisible(true);
     }//GEN-LAST:event_menuNotasActionPerformed
 
-    private void menuAlumXMaterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlumXMaterActionPerformed
-        AlumnoPorMateriaVista alum = new AlumnoPorMateriaVista();
-        alum.setVisible(true);
-    }//GEN-LAST:event_menuAlumXMaterActionPerformed
-
-    private void menuListarAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuListarAlumActionPerformed
-        ListarAlumnosVista la = new ListarAlumnosVista();
-        la.setVisible(true);
-    }//GEN-LAST:event_menuListarAlumActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int x = JOptionPane.showConfirmDialog(this, "Esta seguro de cerrar la aplicación?", "ATENCION !!!", JOptionPane.YES_NO_OPTION);
         if (x == 0) {
@@ -228,27 +209,23 @@ public class MENU extends javax.swing.JFrame {
         alu.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-
-        // TODO add your handling code here:
-        
-     //   AlumnoPorDni aluDni = new AlumnoPorDni();
-     //   aluDni.setVisible(true);
-
-              
-//        AlumnoPorDni aluDni = new AlumnoPorDni();
-//        aluDni.setVisible(true);
-
-
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
-        
-    }//GEN-LAST:event_jMenu4ActionPerformed
-
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
        
     }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+
+    }//GEN-LAST:event_jMenu4ActionPerformed
+
+    private void menuListarAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuListarAlumActionPerformed
+        ListarAlumnosVista la = new ListarAlumnosVista();
+        la.setVisible(true);
+    }//GEN-LAST:event_menuListarAlumActionPerformed
+
+    private void menuAlumXMaterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlumXMaterActionPerformed
+        AlumnoPorMateriaVista alum = new AlumnoPorMateriaVista();
+        alum.setVisible(true);
+    }//GEN-LAST:event_menuAlumXMaterActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -291,7 +268,6 @@ public class MENU extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem menuAlumXMater;
     private javax.swing.JMenuItem menuInscrip;
     private javax.swing.JMenuItem menuListarAlum;

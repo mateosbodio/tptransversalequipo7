@@ -151,8 +151,7 @@ public class TranseversalMain {
 //        } catch (SQLException e) {
 //            System.err.println("Error: " + e.getMessage());
 //        }
-    MENU inicio = new MENU();
-    inicio.setVisible(true);
+    
     }
 
 }

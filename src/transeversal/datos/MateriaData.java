@@ -14,7 +14,7 @@ public class MateriaData {
         con = Conexion.getConexion();
     }
 
-    public void cargarMateria(Materia materia) {
+     public void cargarMateria(Materia materia) {
         String cargarMateria = "INSERT INTO materia (nombre, año, estado) VALUES (?, ?, ?)";
         try {
             try (PreparedStatement ps = con.prepareStatement(cargarMateria, Statement.RETURN_GENERATED_KEYS)) {
@@ -25,7 +25,7 @@ public class MateriaData {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
                     materia.setIdMateria(rs.getInt(1));
-                    //JOptionPane.showMessageDialog(null, "Materia cargada correctamente");
+                    JOptionPane.showMessageDialog(null, "Materia cargada correctamente");
                 }
                 rs.close();
             }
@@ -49,22 +49,22 @@ public class MateriaData {
                 int filasActualizadas = ps.executeUpdate();
 
                 if (filasActualizadas > 0) {
-                    //JOptionPane.showMessageDialog(null, "Materia modificada exitosamente");
+                    JOptionPane.showMessageDialog(null, "Materia modificada exitosamente");
                 } else {
                     JOptionPane.showMessageDialog(null, "No se pudo modificar la materia.");
                 }
             }
         } catch (SQLIntegrityConstraintViolationException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo modificar la materia debido a una restricción");
+            JOptionPane.showMessageDialog(null, "No se pudo modificar la materia debido a una restricción de integridad.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al modificar la materia: " + ex.getMessage());
             ex.printStackTrace();
         }
     }
 
-    public Materia buscarMateriaId(int idMateria) {
+    public Materia buscarMateria(int idMateria) {
         Materia materia = null;
-        String buscarMateria = "SELECT idMateria, nombre, año, estado FROM materia WHERE idMateria=? AND estado=1";
+        String buscarMateria = "SELECT idMateria, nombre, año, estado FROM materia WHERE idMateria=?";
         try {
             try (PreparedStatement ps = con.prepareStatement(buscarMateria)) {
                 ps.setInt(1, idMateria);
@@ -86,9 +86,9 @@ public class MateriaData {
         return materia;
     }
 
-    public Materia buscarMateriaNombre(String nombre) {
+    public Materia buscarMateria(String nombre) {
         Materia materia = null;
-        String bm = "SELECT idMateria, nombre, año, estado FROM materia WHERE nombre=? AND estado=1";
+        String bm = "SELECT idMateria, nombre, año, estado FROM materia WHERE nombre=?";
         try {
             try (PreparedStatement ps = con.prepareStatement(bm)) {
                 ps.setString(1, nombre);

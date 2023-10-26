@@ -1,5 +1,11 @@
-
 package transeversal.vistas;
+
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import transeversal.datos.InscripcionData;
+import transeversal.datos.MateriaData;
+import transeversal.entidades.Alumno;
+import transeversal.entidades.Materia;
 
 /**
  *
@@ -7,9 +13,16 @@ package transeversal.vistas;
  */
 public class AlumnoPorMateriaVista extends javax.swing.JFrame {
 
-    
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+
     public AlumnoPorMateriaVista() {
         initComponents();
+        armarCabecera();
+        cargarCombo();
     }
 
     @SuppressWarnings("unchecked")
@@ -19,7 +32,7 @@ public class AlumnoPorMateriaVista extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbMateria = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -43,15 +56,15 @@ public class AlumnoPorMateriaVista extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cmbMateria.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cmbMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cmbMateriaActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("SELECCIONE ALUMNO:");
+        jLabel1.setText("SELECCIONE MATERIA:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setText("ALUMNOS POR MATERIAS");
@@ -74,7 +87,7 @@ public class AlumnoPorMateriaVista extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(92, 92, 92)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(135, 135, 135))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -95,7 +108,7 @@ public class AlumnoPorMateriaVista extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(54, 54, 54)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -120,16 +133,63 @@ public class AlumnoPorMateriaVista extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void cmbMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMateriaActionPerformed
+        if (cmbMateria.getSelectedIndex() >= 1) {
+            actualizarTabla();
+        } else if (cmbMateria.getSelectedIndex() == 0) {
+            borrarFilas();
+        }
+    }//GEN-LAST:event_cmbMateriaActionPerformed
 
-    
-    
+    private void armarCabecera() {
+        modelo.addColumn("DNI");
+        modelo.addColumn("APELLIDO");
+        modelo.addColumn("NOMBRE");
+        jTable1.setModel(modelo);
 
+    }
+
+    private void cargarCombo() {
+        cmbMateria.removeAllItems();
+        Materia matVacia = new Materia();
+        matVacia.setNombre("Materia");
+        cmbMateria.addItem(matVacia);
+        MateriaData xx = new MateriaData();
+        List<Materia> list = xx.listarMateria();
+        for (Materia mat : list) {
+            cmbMateria.addItem(mat);
+        }
+    }
+
+    private void borrarFilas() {
+        int f = jTable1.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modelo.removeRow(f);
+        }
+    }
+
+    private void actualizarTabla() {
+        borrarFilas();
+        InscripcionData xx = new InscripcionData();
+        Alumno alum = new Alumno();
+        Materia mat = new Materia();
+        if (cmbMateria.getSelectedIndex() >= 1) {
+            mat = (Materia) cmbMateria.getSelectedItem();
+
+            List<Alumno> lista = xx.obtenerAlumnosPorMateria(mat.getIdMateria());
+
+            for (Alumno alumn : lista) {
+                modelo.addRow(new Object[]{
+                    alumn.getDni(),
+                    alumn.getApellido(),
+                    alumn.getNombre()
+                });
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Materia> cmbMateria;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

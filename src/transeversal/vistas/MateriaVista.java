@@ -34,7 +34,7 @@ public class MateriaVista extends javax.swing.JFrame {
         checkNueva = new javax.swing.JCheckBox();
         checkModificar = new javax.swing.JCheckBox();
         btnBuscar = new javax.swing.JButton();
-        cmbEstado = new javax.swing.JComboBox<>();
+        cmbEst = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MATERIA");
@@ -127,9 +127,9 @@ public class MateriaVista extends javax.swing.JFrame {
             }
         });
 
-        cmbEstado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "NO ACTIVO" }));
-        cmbEstado.setToolTipText("");
+        cmbEst.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cmbEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "NO ACTIVO", " " }));
+        cmbEst.setSelectedIndex(-1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -162,7 +162,7 @@ public class MateriaVista extends javax.swing.JFrame {
                                 .addGap(59, 59, 59)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtAño, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                                    .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(cmbEst, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkNueva)
@@ -180,7 +180,7 @@ public class MateriaVista extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,22 +197,24 @@ public class MateriaVista extends javax.swing.JFrame {
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel6))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbEst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(checkNueva)
                         .addGap(104, 104, 104)
                         .addComponent(checkModificar)))
-                .addGap(94, 94, 94)
+                .addGap(92, 92, 92)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCargar)
                     .addComponent(btnModif)
                     .addComponent(btnLimpiar))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -234,25 +236,33 @@ public class MateriaVista extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-        if (txtNombre.getText().equals("") || txtAño.getText().equals("")) {
-
-            JOptionPane.showMessageDialog(this, "Complete los campos");
+        if (txtNombre.getText().isEmpty() || txtAño.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Complete los campos.");
         } else {
             MateriaData mg = new MateriaData();
             Materia mater = new Materia();
-            JOptionPane.showMessageDialog(this, "Materia cargada correctamente");
+
             try {
                 mater.setNombre(txtNombre.getText());
                 mater.setAño(Integer.parseInt(txtAño.getText()));
-                mater.setEstado(true);
+
+                // Verificar la selección del ComboBox
+                String estadoSeleccionado = (String) cmbEst.getSelectedItem();
+                if (estadoSeleccionado.equals("Activo")) {
+                    mater.setEstado(true);
+                } else if (estadoSeleccionado.equals("No Activo")) {
+                    mater.setEstado(false);
+                } else {
+                    // Manejar un caso no válido si es necesario
+                }
+
                 mg.cargarMateria(mater);
-                limpiar();
+
+                JOptionPane.showMessageDialog(this, "Materia cargada correctamente.");
             } catch (NumberFormatException ex) {
-
-                JOptionPane.showMessageDialog(this, "Datos no validos, ingrese solo numeros");
+                JOptionPane.showMessageDialog(this, "Datos no válidos. Ingrese solo números.");
             } catch (NullPointerException ex) {
-
-                JOptionPane.showMessageDialog(this, "Debe cargar el campo año");
+                JOptionPane.showMessageDialog(this, "Debe cargar el campo año.");
             }
         }
     }//GEN-LAST:event_btnCargarActionPerformed
@@ -268,8 +278,7 @@ public class MateriaVista extends javax.swing.JFrame {
                 mater.setNombre(txtNombre.getText());
                 mater.setAño(Integer.parseInt(txtAño.getText()));
 
-               
-                mater.setEstado(cmbEstado.isEnabled());
+                mater.setEstado(cmbEst.isEnabled());
 
                 md.modificarMateria(mater);
                 JOptionPane.showMessageDialog(this, "Materia modificada correctamente");
@@ -289,46 +298,40 @@ public class MateriaVista extends javax.swing.JFrame {
         try {
             MateriaData md = new MateriaData();
             Materia mater = new Materia();
-            if (txtID.getText().equals("") && txtNombre.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "Ingrese codigo o nombre de materia para buscar");
-
-            } else if (txtID.getText().equals("")) {
-                mater.setIdMateria(0);
-                mater.setNombre(txtNombre.getText());
-                md.buscarMateria(mater);
-            } else {
-                mater.setIdMateria(Integer.parseInt(txtID.getText()));
-                mater.setNombre(txtNombre.getText());
-                md.buscarMateria(mater);
+            if (txtID.getText().isEmpty() && txtNombre.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese código o nombre de materia para buscar.");
+                return;
             }
+            if (!txtID.getText().isEmpty()) {
+                mater.setIdMateria(Integer.parseInt(txtID.getText()));
+            }
+            mater.setNombre(txtNombre.getText());
+            md.buscarMateria(mater);
             if (mater.getIdMateria() == 0) {
-                limpiar();
+                //limpiar();
             } else {
-                txtID.setText(mater.getIdMateria() + "");
+                txtID.setText(String.valueOf(mater.getIdMateria()));
                 txtNombre.setText(mater.getNombre());
-                txtAño.setText(mater.getAño() + "");
-
-                cmbEstado.setSelectedItem(1);
-                if (mater.isEstado() == true) {
-
-                    cmbEstado.setSelectedItem(0);
+                txtAño.setText(String.valueOf(mater.getAño()));
+                
+                if (mater.isEstado()) {
+                    cmbEst.setSelectedItem("Activo");
                 } else {
-
-                    cmbEstado.setSelectedItem(1);
+                    cmbEst.setSelectedItem("No Activo");
                 }
+
                 btnModif.setEnabled(true);
             }
         } catch (NumberFormatException ex) {
             limpiar();
-            JOptionPane.showMessageDialog(this, "Ingrese numeros donde corresponda");
-
+            JOptionPane.showMessageDialog(this, "Ingrese números donde corresponda.");
         } catch (NullPointerException ex) {
-
+            limpiar();
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void checkNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkNuevaActionPerformed
-         nueva();
+        nueva();
         limpiar();
     }//GEN-LAST:event_checkNuevaActionPerformed
 
@@ -345,7 +348,7 @@ public class MateriaVista extends javax.swing.JFrame {
     private javax.swing.JButton btnModif;
     private javax.swing.JCheckBox checkModificar;
     private javax.swing.JCheckBox checkNueva;
-    private javax.swing.JComboBox<String> cmbEstado;
+    private javax.swing.JComboBox<String> cmbEst;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -361,13 +364,13 @@ private void limpiar() {
         txtID.setText("");
         txtNombre.setText("");
         txtAño.setText("");
-        cmbEstado.setSelectedItem(-1);
+        cmbEst.setSelectedItem(-1);
     }
 
     public void nueva() {
         checkNueva.setSelected(true);
         checkModificar.setSelected(false);
-        cmbEstado.setSelectedItem(-1);
+        cmbEst.setSelectedItem(-1);
         txtID.setEnabled(false);
         btnBuscar.setEnabled(false);
         btnCargar.setEnabled(true);
@@ -377,7 +380,7 @@ private void limpiar() {
     public void modificar() {
         checkNueva.setSelected(false);
         checkModificar.setSelected(true);
-        cmbEstado.setSelectedItem(-1);
+        cmbEst.setSelectedItem(-1);
         txtID.setEnabled(true);
         btnBuscar.setEnabled(true);
         btnCargar.setEnabled(false);
