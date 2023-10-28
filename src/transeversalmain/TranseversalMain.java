@@ -12,10 +12,9 @@ import transeversal.vistas.MENU;
 public class TranseversalMain {
 
     public static void main(String[] args) {
-        MENU escritorio = new MENU();
-        escritorio.setVisible(true);
-        
-        
+//        MENU escritorio = new MENU();
+//        escritorio.setVisible(true);
+
 //        //ALUMNOS
 //        int dni = 30200666;
 //        String apellido = "Torrez";
@@ -101,11 +100,8 @@ public class TranseversalMain {
 //       m3.setAño(1);
 //       m3.setEstado(false);
 //       
-      
-    //metodo para mostar notas
-  //   MateriaData md1
-    
-
+        //metodo para mostar notas
+        //   MateriaData md1
 //        String consulta = "SELECT a.idAlumno, a.dni, a.apellido, a.nombre, i.nota, m.nombre AS nombreMateria "
 //                + "FROM alumno a "
 //                + "INNER JOIN inscripcion i ON a.idAlumno = i.idAlumno "
@@ -129,19 +125,39 @@ public class TranseversalMain {
 //            System.out.println("error"+e.getMessage());
 //        }
 //
-
-    //metodo desincripccion.
+        
 //
-// try {
+        //metodo inscribir alumno
+//        try {
 //            PreparedStatement ps = null;
-//            int idAlumno = 1; 
-//            int idMateria = 1; 
-//            String consulta1 = "DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
-//            ps = con.prepareStatement(consulta1);
-//                   
+//            String consulta = "INSERT INTO inscripcion (idAlumno, idMateria) VALUES (?, ?)";
+//            ps = con.prepareStatement(consulta);
+//
 //            ps.setInt(1, idAlumno);
 //            ps.setInt(2, idMateria);
-//           
+//
+//            int filasAfectadas = ps.executeUpdate();
+//            if (filasAfectadas > 0) {
+//                System.out.println("Inscripción exitosa.");
+//            } else {
+//                System.out.println("No se pudo inscribir al alumno en la materia.");
+//            }
+//        } catch (SQLException e) {
+//            System.err.println("Error: " + e.getMessage());
+//        }
+        
+        //metodo desinscripcion
+
+//        try {
+//            PreparedStatement ps = null;
+//            int idAlumno = 1;
+//            int idMateria = 1;
+//            String consulta1 = "DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
+//            ps = con.prepareStatement(consulta1);
+//
+//            ps.setInt(1, idAlumno);
+//            ps.setInt(2, idMateria);
+//
 //            int filasAfectadas = ps.executeUpdate();
 //            if (filasAfectadas > 0) {
 //                System.out.println("desinscripcin ok.");
@@ -151,7 +167,7 @@ public class TranseversalMain {
 //        } catch (SQLException e) {
 //            System.err.println("Error: " + e.getMessage());
 //        }
-    
+
     }
 
 }
