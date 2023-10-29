@@ -315,9 +315,9 @@ public class MateriaVista extends javax.swing.JFrame {
                 txtAño.setText(String.valueOf(mater.getAño()));
                 
                 if (mater.isEstado()) {
-                    cmbEst.setSelectedItem("Activo");
+                    cmbEst.setSelectedIndex(0);
                 } else {
-                    cmbEst.setSelectedItem("No Activo");
+                    cmbEst.setSelectedIndex(1);
                 }
 
                 btnModif.setEnabled(true);
